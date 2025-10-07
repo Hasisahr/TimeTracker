@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Odaberi razdoblje i zaposlenika";
+}
+
+<form asp-action="RedirectToReview" method="post" class="row g-3">
+    <div class="col-md-4">
+        <label class="form-label">Zaposlenik</label>
+        <select name="userId" class="form-control" asp-items="ViewBag.Users" required>
+            <option disabled selected>-- Odaberi --</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Mjesec</label>
+        <input name="month" type="number" class="form-control" min="1" max="12" required />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Godina</label>
+        <input name="year" type="number" class="form-control" value="@DateTime.Now.Year" required />
+    </div>
+    <div class="col-md-2 align-self-end">
+        <button class="btn btn-primary">Pregledaj smjene</button>
+    </div>
+</form>
+
+

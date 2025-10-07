@@ -1,0 +1,54 @@
+﻿@model TimeTracker.Model.Schedule
+@{
+    var userOptions = (SelectList)ViewBag.Users;
+}
+
+<h4>Raspored za @Model.ScheduleDate.ToString("dd.MM.yyyy")</h4>
+
+<form asp-action="ConfirmSchedule" method="post">
+    <input type="hidden" asp-for="ScheduleDate" />
+    <input type="hidden" asp-for="StartTime" />
+    <input type="hidden" asp-for="EndTime" />
+    <input type="hidden" asp-for="TicketsSold" />
+
+    @for (int i = 0; i < Model.Assignments.Count; i++)
+    {
+        <div class="mb-3">
+            <label>@Model.Assignments[i].Position - Slot @Model.Assignments[i].SlotNumber</label>
+            <select name="Assignments[@i].WorkerId" asp-items="ViewBag.Users" class="form-control worker-select"></select>
+
+            <input type="hidden" name="Assignments[@i].Position" value="@Model.Assignments[i].Position" />
+            <input type="hidden" name="Assignments[@i].SlotNumber" value="@Model.Assignments[i].SlotNumber" />
+        </div>
+    }
+
+    <button class="btn btn-success">Spremi raspored</button>
+</form>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const selects = document.querySelectorAll(".worker-select");
+
+            function updateOptions() {
+                const selectedValues = Array.from(selects)
+                    .map(s => s.value)
+                    .filter(v => v); // ignoriraj prazne
+
+                selects.forEach(select => {
+                    const currentValue = select.value;
+
+                    Array.from(select.options).forEach(option => {
+                        if (option.value === "") return; // ostavi praznu
+                        option.disabled = selectedValues.includes(option.value) && option.value !== currentValue;
+                    });
+                });
+            }
+
+            selects.forEach(select => {
+                select.addEventListener("change", updateOptions);
+            });
+
+            updateOptions();
+        });
+    </script>
+}

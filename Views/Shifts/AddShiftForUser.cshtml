@@ -1,0 +1,34 @@
+﻿@using TimeTracker.Model
+@model Shift
+
+<h2 class="mb-4">Unesi novu smjenu</h2>
+
+<form id="shiftForm" asp-action="AddShiftForUser" method="post" class="p-4 border rounded shadow-sm">
+    <label for="IdentityUserId" class="form-label">Zaposlenik</label>
+    <select asp-for="IdentityUserId" asp-items="ViewBag.Users" class="form-control" required>
+        <option disabled selected>-- Odaberi zaposlenika --</option>
+    </select>
+    <partial name="_CreateOrEdit" />
+    <input type="hidden" asp-for="IdentityUserId" value="1" />
+</form>
+
+@section Scripts {
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                console.log("Pozvana skripta");
+                const form = document.getElementById("shiftForm");
+                const start = document.getElementById("StartTime");
+                const end = document.getElementById("EndTime");
+                const errorSpan = document.getElementById("timeError");
+
+                form.addEventListener("submit", function (e) {
+                    if (start.value && end.value && start.value >= end.value) {
+                        e.preventDefault();
+                        errorSpan.classList.remove("d-none");
+                    } else {
+                        errorSpan.classList.add("d-none");
+                    }
+                });
+            });
+        </script>
+}

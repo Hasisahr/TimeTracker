@@ -1,0 +1,37 @@
+﻿@using TimeTracker.Model
+@using TimeTracker.Web.Models
+@model IEnumerable<Shift>
+
+<partial name="_ShiftFilter" model="new ShiftFilterModel()" />
+
+<div id="tableContainer">
+    <partial name="_ShiftTablePartial" />
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function performFilter() {
+            console.log("klik")
+            const form = $('#filterForm');
+            const formData = form.serialize();
+
+            $.ajax({
+                url: '@Url.Action("ListAjax", "Shifts")',
+                method: 'POST',
+                data: formData,
+                success: function (result) {
+                    $('#tableContainer').html(result);
+                },
+                error: function () {
+                    alert("Došlo je do greške prilikom filtriranja.");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#btnFilter').click(performFilter);
+        });
+    </script>
+}

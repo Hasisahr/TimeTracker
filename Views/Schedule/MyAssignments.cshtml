@@ -1,0 +1,32 @@
+﻿@model List<TimeTracker.Model.ScheduleAssignment>
+
+<h3>Moj raspored</h3>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Vrijeme</th>
+                <th>Pozicija</th>
+                <th>Slot</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Schedule.ScheduleDate.ToString("dd.MM.yyyy")</td>
+                    <td>@a.Schedule.StartTime - @a.Schedule.EndTime</td>
+                    <td>@a.Position</td>
+                    <td>@a.SlotNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Nema nadolazećih smjena.</p>
+}

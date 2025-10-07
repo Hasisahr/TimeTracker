@@ -1,0 +1,13 @@
+﻿@using TimeTracker.Model
+@model Shift
+
+<h2 class="mb-4">Izmjeni smjenu</h2>
+
+<form asp-action="Edit" method="post" class="p-4 border rounded shadow-sm">
+    <partial name="_CreateOrEdit" />
+</form>
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Jesi li siguran da želiš obrisati ovu smjenu?');">
+    <button type="submit" class="btn btn-danger mt-3">
+        <i class="bi bi-trash-fill me-2"></i> Obriši smjenu
+    </button>
+</form>

@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Dobrodošli</h1>
+    </div>
+
+    <div class="row justify-content-center g-3 mt-4">
+        <div class="col-md-4 d-grid">
+            <a href="/Shifts" class="btn btn-primary btn-lg">
+                <i class="bi bi-clock-history me-2"></i> Pregled svih smjena
+            </a>
+        </div>
+
+        <div class="col-md-4 d-grid">
+            <a asp-controller="Schedule" asp-action="AllSchedules" class="btn btn-primary btn-lg">
+                <i class="bi bi-calendar-week me-2"></i> Pregled rasporeda
+            </a>
+        </div>
+
+        @if (ViewBag.isPrivilaged)
+        {
+            <div class="col-md-4 d-grid">
+                <form asp-action="AddShiftForUser" asp-controller="Shifts" method="post">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i> Dodaj novu smjenu
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-md-4 d-grid">
+                <a asp-controller="Salary" asp-action="Index" class="btn btn-primary btn-lg">
+                    <i class="bi bi-currency-euro me-2"></i> Pregled plaća
+                </a>
+            </div>
+
+            <div class="col-md-4 d-grid">
+                <a asp-controller="Schedule" asp-action="ScheduleInfo" class="btn btn-primary btn-lg">
+                    <i class="bi bi-calendar-plus me-2"></i> Unos rasporeda
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-4 d-grid">
+                <form asp-action="AddShift" asp-controller="Shifts" method="post">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i> Dodaj novu smjenu
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-md-4 d-grid">
+                <a asp-controller="Salary" asp-action="UserSalaries" class="btn btn-primary btn-lg">
+                    <i class="bi bi-currency-euro me-2"></i> Pregled plaća
+                </a>
+            </div>
+
+            <div class="col-md-4 d-grid">
+                <a asp-controller="Schedule" asp-action="MyAssignments" class="btn btn-primary btn-lg">
+                    <i class="bi bi-person-lines-fill me-2"></i> Nadolazeće smjene
+                </a>
+            </div>
+        }
+    </div>
+</div>

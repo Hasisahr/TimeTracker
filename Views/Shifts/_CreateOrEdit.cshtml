@@ -1,0 +1,27 @@
+﻿@using TimeTracker.Model
+@model Shift
+
+<div class="mb-3">
+        <label asp-for="ShiftDate" class="form-label"></label>
+        <input asp-for="ShiftDate" type="date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+    </div>
+
+
+    <div class="mb-3">
+        <label for="StartTime" class="form-label">Početak</label>
+    <input type="time" asp-for="StartTime" class="form-control" required id="StartTime" />
+    </div>
+
+    <div class="mb-3">
+        <label for="EndTime" class="form-label">Kraj</label>
+    <input type="time" asp-for="EndTime" class="form-control" required id="EndTime" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Position" class="form-label">Pozicija</label>
+        <select asp-for="Position" asp-items="Html.GetEnumSelectList<Position>()" class="form-control"></select>
+    </div>
+<span id="timeError" class="text-danger d-none">Vrijeme početka mora biti prije kraja.</span>
+
+    
+    <button type="submit" class="btn btn-success w-100" id="submit">Spremi smjenu</button>

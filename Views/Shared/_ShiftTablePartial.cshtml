@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TimeTracker.Model.Shift>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            @if (ViewBag.isPrivilaged)
+            {
+                <th>Radnik</th>
+            }
+            <th>Datum</th>
+            <th>Početak</th>
+            <th>Kraj</th>
+            <th>Pozicija</th>
+            <th>Zarada</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shift in Model)
+        {
+            <tr>
+                @if (ViewBag.isPrivilaged)
+                {
+                    <td>@shift.IdentityUser.UserName</td>
+                }
+                <td>@shift.StartTime.ToString("dd.MM.yyyy")</td>
+                <td>@shift.StartTime.ToString("HH:mm")</td>
+                <td>@shift.EndTime.ToString("HH:mm")</td>
+                <td>@shift.Position</td>
+                <td>@shift.calculateWageForShift()€</td>
+                <td><a asp-action="Edit" asp-route-id="@shift.Id">[edit]</a></td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

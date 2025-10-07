@@ -1,0 +1,25 @@
+﻿@using TimeTracker.Web.Models;
+@using TimeTracker.Model
+@model ShiftFilterModel
+
+<form id="filterForm" method="post" action="@Url.Action("ListAjax")">
+    <div class="row g-2 mb-3">
+        <div class="col">
+            <input asp-for="Date" type="date" class="form-control" placeholder="Datum" />
+        </div>
+        <div class="col">
+            <input asp-for="FromTime" type="time" class="form-control" placeholder="Od vremena" />
+        </div>
+        <div class="col">
+            <input asp-for="ToTime" type="time" class="form-control" placeholder="Do vremena" />
+        </div>
+        <div class="col">
+            <select asp-for="Position" asp-items="Html.GetEnumSelectList<Position>()" class="form-control">
+                <option value="">— Pozicija —</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="button" id="btnFilter" class="btn btn-outline-primary">Filtriraj</button>
+        </div>
+    </div>
+</form>

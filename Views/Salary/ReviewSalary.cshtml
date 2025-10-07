@@ -1,0 +1,16 @@
+﻿@model List<TimeTracker.Model.Shift>
+
+<div id="tableContainer">
+    <partial name="_ShiftTablePartial" />
+</div>
+
+<form asp-action="LockSalary" method="post">
+    <input type="hidden" name="userId" value="@ViewBag.UserId" />
+    <input type="hidden" name="month" value="@ViewBag.Month" />
+    <input type="hidden" name="year" value="@ViewBag.Year" />
+    <input type="hidden" name="totalSalary" value="@ViewBag.totalSalary" />
+    <button class="btn btn-danger">Zaključaј plaću</button>
+</form>
+<div>
+    Ukupna placa = @ViewBag.totalSalary
+</div>

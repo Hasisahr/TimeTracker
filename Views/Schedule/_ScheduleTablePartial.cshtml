@@ -1,0 +1,57 @@
+﻿@model List<TimeTracker.Model.Schedule>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Vrijeme</th>
+                <th>Karte</th>
+                <th>Broj pozicija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td>@s.ScheduleDate.ToString("dd.MM.yyyy")</td>
+                    <td>@s.StartTime - @s.EndTime</td>
+                    <td>@s.TicketsSold</td>
+                    <td>@(s.Assignments?.Count ?? 0)</td>
+                </tr>
+
+                @if (s.Assignments != null && s.Assignments.Any())
+                {
+                    <tr>
+                        <td colspan="5">
+                            <table class="table table-sm table-striped mb-4">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Pozicija</th>
+                                        <th>Slot</th>
+                                        <th>Zaposlenik</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var a in s.Assignments.OrderBy(a => a.Position).ThenBy(a => a.SlotNumber))
+                                    {
+                                        <tr>
+                                            <td>@a.Position</td>
+                                            <td>@a.SlotNumber</td>
+                                            <td>@a.Worker?.UserName</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Još nema rasporeda u sustavu.</p>
+}

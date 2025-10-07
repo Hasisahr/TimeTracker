@@ -1,0 +1,30 @@
+﻿@model List<TimeTracker.Model.Salary>
+
+<h3>Moje zaključane plaće</h3>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Razdoblje</th>
+                <th>Iznos (€)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var salary in Model)
+            {
+                <tr>
+                    <td>@salary.Month/@salary.Year</td>
+                    <td>@salary.TotalSalary</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Još nema zaključanih plaća.</p>
+}
